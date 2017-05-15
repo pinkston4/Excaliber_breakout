@@ -8,22 +8,17 @@ var game = new ex.Engine({
 class Player extends ex.Actor {
 
     constructor() {
-        super();
+        super(150, game.getDrawHeight()-40, 200, 20, ex.Color.Chartreuse);
         this.collisionType = ex.CollisionType.Fixed;
-        this.color = ex.Color.Chartreuse;
-        this.x = 150;
-        this.y = game.getDrawHeight() - 40;
-        this.setHeight(20);
-        this.setWidth(200);
     }    
 
     public update(game, delta) {
         super.update(game, delta);
         if (game.input.keyboard.isHeld(ex.Input.Keys.Left) || game.input.keyboard.wasPressed(ex.Input.Keys.Left)) {
-            this.pos.x -= 10;
+            this.pos.x -= 20;
         }
          if (game.input.keyboard.isHeld(ex.Input.Keys.Right) || game.input.keyboard.wasPressed(ex.Input.Keys.Right)) {
-            this.pos.x += 10;
+            this.pos.x += 20;
         }
     }
 }
@@ -31,13 +26,8 @@ class Player extends ex.Actor {
 class Ballz extends ex.Actor {
 
     constructor() {
-        super();
+        super(100, 300, 20, 20, ex.Color.Red);
         this.collisionType = ex.CollisionType.Elastic;
-        this.x = 100;
-        this.y = 300;
-        this.setHeight(20);
-        this.setWidth(20);
-        this.color = ex.Color.Red;
         this.vel.setTo(100,100);
             // On collision remove the brick
         this.on('collision',  (ev: ex.CollisionEvent) => {
@@ -55,19 +45,31 @@ class Ballz extends ex.Actor {
     public update(game, delta) {
         super.update(game, delta);
         if (this.pos.x < (this.getWidth() / 2)) {
-            this.vel.x *= -1.1;
+            if(this.vel.x <= 200) {
+                this.vel.x *= -1.2;
+            } else {
+                this.vel.x *= -1;
+            }
         }
 
         // If the ball collides with the right side
         // of the screen reverse the x velocity
         if (this.pos.x + (this.getWidth() / 2) > game.getDrawWidth()) {
-            this.vel.x *= -1.1;
+            if(this.vel.x <= 200) {
+                this.vel.x *= -1.2;
+            } else {
+                this.vel.x *= -1;
+            }        
         }
 
         // If the ball collides with the top
         // of the screen reverse the y velocity
         if (this.pos.y < 0) {
-            this.vel.y *= -1.1;
+            if(this.vel.x <= 200) {
+                this.vel.x *= -1.2;
+            } else {
+                this.vel.x *= -1;
+            }        
         }
     }
 
@@ -95,9 +97,9 @@ var padding = 20; // px
 var xoffset = 65; // x-offset
 var yoffset = 20; // y-offset
 var columns = 5;
-var rows = 3;
+var rows = 4;
 
-var brickColor = [ex.Color.Violet, ex.Color.Orange, ex.Color.Yellow];
+var brickColor = [ex.Color.Azure, ex.Color.Violet, ex.Color.Orange, ex.Color.Yellow ];
 
 // Individual brick width with padding factored in
 var brickWidth = game.getDrawWidth() / columns - padding - padding/columns; // px
