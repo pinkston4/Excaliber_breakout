@@ -52,7 +52,6 @@ class Ballz extends ex.Actor {
         });
     }
 
-
     public update(game, delta) {
         super.update(game, delta);
         if (this.pos.x < (this.getWidth() / 2)) {
@@ -84,15 +83,11 @@ class Ballz extends ex.Actor {
 
 }
 
-
-
 var paddle = new Player();
 var ball = new Ballz();
 
-
 game.add(paddle);
 game.add(ball);
-
 
 // Build Bricks
 // Padding between bricks

@@ -13,20 +13,16 @@ var game = new ex.Engine({
     width: 800,
     height: 600
 });
-// Create an actor with x position of 150px,
-// y position of 40px from the bottom of the screen,
-// width of 200px, height and a height of 20px
-// 
 var Player = (function (_super) {
     __extends(Player, _super);
     function Player() {
         var _this = _super.call(this) || this;
-        _this.collisionType = ex.CollisionType.Fixed;
         _this.color = ex.Color.Chartreuse;
         _this.x = 150;
         _this.y = game.getDrawHeight() - 40;
         _this.setHeight(20);
         _this.setWidth(200);
+        _this.collisionType = ex.CollisionType.Fixed;
         return _this;
     }
     Player.prototype.update = function (game, delta) {
@@ -44,13 +40,13 @@ var Ballz = (function (_super) {
     __extends(Ballz, _super);
     function Ballz() {
         var _this = _super.call(this) || this;
-        _this.collisionType = ex.CollisionType.Active;
         _this.x = 100;
         _this.y = 300;
         _this.setHeight(20);
         _this.setWidth(20);
         _this.color = ex.Color.Red;
         _this.vel.setTo(100, 100);
+        _this.collisionType = ex.CollisionType.Elastic;
         // On collision remove the brick
         _this.on('collision', function (ev) {
             if (bricks.indexOf(ev.other) > -1) {
@@ -82,7 +78,7 @@ var Ballz = (function (_super) {
     };
     Ballz.prototype.draw = function (ctx, delta) {
         // Custom draw code
-        // super.draw(ctx, delta);
+        _super.prototype.draw.call(this, ctx, delta);
         ctx.fillStyle = this.color.toString();
         ctx.beginPath();
         ctx.arc(this.pos.x, this.pos.y, 10, 0, Math.PI * 2);
@@ -93,12 +89,8 @@ var Ballz = (function (_super) {
 }(ex.Actor));
 var paddle = new Player();
 var ball = new Ballz();
-// `game.add` is the same as calling
-// `game.currentScene.add`
 game.add(paddle);
-// Add the ball to the current scene
 game.add(ball);
-// ball.draw();
 // Build Bricks
 // Padding between bricks
 var padding = 20; // px
