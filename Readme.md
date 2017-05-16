@@ -2,11 +2,11 @@
 
 This is a basic Excalibur.js game.
 
-## Compiling the game
+## Setting up the game:
 
 You will need Node.js and NPM installed.
 
-To compile:
+To Compile: 
 
     npm install
     npm start
