@@ -3,7 +3,8 @@
 //initializing the excalibur engine and assigning it the global variable game
 var game = new ex.Engine({
     width: 800,
-    height: 600
+    height: 600,
+    canvasElementId: 'gameCanvas',
 });
 
 class Player extends ex.Actor {
